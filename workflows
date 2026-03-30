@@ -1,0 +1,54 @@
+name: Validate Spec
+
+on:
+  push:
+    paths:
+      - "spec/**"
+      - "examples/**"
+      - ".github/workflows/validate-spec.yml"
+  pull_request:
+    paths:
+      - "spec/**"
+      - "examples/**"
+      - ".github/workflows/validate-spec.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install AJV CLI
+        run: npm install --no-save ajv-cli
+
+      - name: Validate main spec JSON against schema
+        run: |
+          npx ajv validate \
+            --spec=draft2020 \
+            -s spec/github-extension-v0.1.schema.json \
+            -d spec/github-extension-v0.1.json
+
+      - name: Validate minimal sample against schema
+        run: |
+          npx ajv validate \
+            --spec=draft2020 \
+            -s spec/github-extension-v0.1.schema.json \
+            -d examples/github-extension-v0.1.min.sample.json
+
+      - name: Validate full sample if present
+        run: |
+          if [ -f examples/github-extension-v0.1.full.sample.json ]; then
+            npx ajv validate \
+              --spec=draft2020 \
+              -s spec/github-extension-v0.1.schema.json \
+              -d examples/github-extension-v0.1.full.sample.json
+          else
+            echo "No full sample found. Skipping."
+          fi
