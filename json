@@ -1,0 +1,465 @@
+{
+  "spec_name": "Kazene Royalty Extension for GitHub",
+  "short_name": "KREG",
+  "version": "0.1.0",
+  "status": "draft",
+  "compatibility": {
+    "kazene_royalty_os_core": "3.0",
+    "integration_mode": "overlay-first",
+    "core_principles": [
+      "permission",
+      "trace",
+      "allocation"
+    ]
+  },
+  "metadata": {
+    "repository_name": "kazene-royalty-extension-github",
+    "title_en": "Kazene Royalty Extension for GitHub",
+    "title_ja": "Kazene Royalty Extension for GitHub",
+    "summary_en": "An extension specification that applies Kazene Royalty OS v3.0 to GitHub, connecting repositories, Copilot-era code usage, and developer contribution traces to a governed cycle of permission, trace, and allocation.",
+    "summary_ja": "Kazene 印税OS v3.0 を GitHub に適用し、リポジトリ、Copilot時代のコード利用、開発者の寄与痕跡を、許諾・痕跡・分配の正規循環へ接続するための拡張仕様。",
+    "maintainer": "SamuraiWriter7",
+    "license": "Apache-2.0"
+  },
+  "design_policy": [
+    "Qコインは非換金・非譲渡・内部会計単位とする",
+    "AIは利用者または契約主体の代理エージェントとして扱う",
+    "既存GitHub機能を置き換えず、上位レイヤーとして追加する",
+    "完全自動分配よりも先に、監査可能な最小循環を優先する"
+  ],
+  "actors": {
+    "developer": {
+      "role": [
+        "code_authoring",
+        "design_contribution",
+        "issue_contribution",
+        "pull_request_contribution",
+        "discussion_contribution",
+        "ai_profile_configuration"
+      ]
+    },
+    "repository_owner": {
+      "role": [
+        "repository_policy_control",
+        "ksd_policy_management",
+        "allocation_review"
+      ]
+    },
+    "organization_admin": {
+      "role": [
+        "organization_policy_management",
+        "copilot_audit_review",
+        "recirculation_pool_management"
+      ]
+    },
+    "principal_user": {
+      "role": [
+        "copilot_usage",
+        "chat_usage",
+        "review_usage"
+      ]
+    },
+    "agent_proxy": {
+      "role": [
+        "ai_reference",
+        "ai_transform",
+        "ai_assist"
+      ],
+      "restriction": [
+        "not_an_independent_rights_holder"
+      ]
+    },
+    "allocation_engine": {
+      "role": [
+        "trace_aggregation",
+        "qcoin_calculation",
+        "allocation_report_generation"
+      ]
+    }
+  },
+  "structural_units": {
+    "repository": {
+      "traceable": true
+    },
+    "branch": {
+      "traceable": true
+    },
+    "file": {
+      "traceable": true
+    },
+    "snippet": {
+      "traceable": true
+    },
+    "issue": {
+      "traceable": true
+    },
+    "pull_request": {
+      "traceable": true
+    },
+    "review_comment": {
+      "traceable": true
+    },
+    "discussion": {
+      "traceable": true
+    },
+    "design_note": {
+      "traceable": true
+    }
+  },
+  "layers": {
+    "access": {
+      "description": "AI利用許諾レイヤー",
+      "attachment_points": [
+        "repository",
+        "path",
+        "file",
+        "snippet"
+      ],
+      "ai_use_profile": {
+        "name": "Kazene License for Code",
+        "short_name": "KLC",
+        "presets": {
+          "open_reference": {
+            "view": true,
+            "summarize": true,
+            "quote": true,
+            "embed": true,
+            "external_response": true,
+            "retraining": false,
+            "commercial_use": true
+          },
+          "guarded_reference": {
+            "view": true,
+            "summarize": true,
+            "quote": true,
+            "embed": false,
+            "external_response": true,
+            "retraining": false,
+            "commercial_use": true
+          },
+          "no_ai_training": {
+            "view": true,
+            "summarize": true,
+            "quote": true,
+            "embed": false,
+            "external_response": false,
+            "retraining": false,
+            "commercial_use": false
+          },
+          "custom": {
+            "view": true,
+            "summarize": true,
+            "quote": true,
+            "embed": false,
+            "external_response": false,
+            "retraining": false,
+            "commercial_use": false
+          }
+        }
+      },
+      "enforcement_modes": {
+        "advisory": true,
+        "audit_required": true,
+        "deny_on_policy_violation": true
+      }
+    },
+    "trace": {
+      "description": "構造痕跡レイヤー",
+      "event_sources": {
+        "native_surfaces": [
+          "profile_contribution_graph",
+          "contribution_activity",
+          "github_sponsors",
+          "copilot_usage_data",
+          "copilot_audit_logs"
+        ],
+        "extension_required": [
+          "copilot_reference_event",
+          "copilot_accept_event",
+          "copilot_transform_event",
+          "structure_dna_attachment",
+          "cross_repo_resonance_event"
+        ]
+      },
+      "trace_log": {
+        "root_key": "github_trace_log",
+        "required_fields": [
+          "log_id",
+          "timestamp",
+          "repository_id",
+          "actor_id",
+          "principal_id",
+          "agent_id",
+          "structural_unit_type",
+          "structural_unit_id",
+          "action_type",
+          "result_use_type",
+          "permission_snapshot",
+          "token_count",
+          "q_consumption"
+        ],
+        "optional_fields": [
+          "pull_request_id",
+          "issue_id",
+          "discussion_id",
+          "branch",
+          "path",
+          "commit_sha",
+          "copilot_session_id",
+          "language",
+          "resonance_score",
+          "ksd_id"
+        ]
+      },
+      "action_types": [
+        "view",
+        "summarize",
+        "quote",
+        "embed",
+        "autocomplete_reference",
+        "chat_reference",
+        "code_review_reference",
+        "external_response",
+        "transform"
+      ],
+      "result_use_type": [
+        "internal_reference",
+        "accepted_suggestion",
+        "modified_suggestion",
+        "review_assist",
+        "external_response",
+        "analytics"
+      ],
+      "retention": {
+        "minimum": "12_months",
+        "exportable": true,
+        "auditable": true
+      },
+      "resonance": {
+        "enabled": true,
+        "name": "Resonance Score",
+        "formula": "depth_coeff * reuse_coeff * validation_coeff * cross_repo_coeff",
+        "coefficients": {
+          "depth_coeff": {
+            "min": 1.0,
+            "max": 2.0
+          },
+          "reuse_coeff": {
+            "min": 1.0,
+            "max": 2.0
+          },
+          "validation_coeff": {
+            "min": 0.8,
+            "max": 1.5
+          },
+          "cross_repo_coeff": {
+            "min": 1.0,
+            "max": 2.0
+          }
+        }
+      },
+      "structure_dna": {
+        "enabled": true,
+        "name": "KSD",
+        "full_name": "Kazene Structural DNA",
+        "generation": {
+          "id_format": "uuidv7",
+          "fingerprint": {
+            "method": "normalized_structure_fingerprint",
+            "inputs": [
+              "semantic_pattern",
+              "dependency_shape",
+              "control_flow_signature",
+              "discussion_lineage"
+            ]
+          }
+        },
+        "attach_to": [
+          "file",
+          "snippet",
+          "issue",
+          "pull_request",
+          "discussion"
+        ],
+        "goal": [
+          "origin_traceability",
+          "structural_lineage_visibility",
+          "multi_stage_derivation_tracking"
+        ]
+      }
+    },
+    "royalty": {
+      "description": "内部会計・配分レイヤー",
+      "qcoin": {
+        "name": "Qコイン",
+        "type": "internal_accounting_unit",
+        "exchangeable_to_fiat": false,
+        "transferable_between_users": false,
+        "external_wallet_supported": false,
+        "market_tradable": false
+      },
+      "calculation": {
+        "base_formula": "base_rate * action_coeff * repo_coeff * scope_coeff * resonance_coeff",
+        "defaults": {
+          "base_rate": 1.0,
+          "repo_coeff": 1.0,
+          "scope_coeff": 1.0,
+          "resonance_coeff": 1.0
+        },
+        "action_coeff_table": {
+          "view": 1.0,
+          "summarize": 1.3,
+          "quote": 1.2,
+          "embed": 1.4,
+          "autocomplete_reference": 1.4,
+          "chat_reference": 1.6,
+          "code_review_reference": 1.7,
+          "transform": 1.8,
+          "external_response": 2.0
+        }
+      },
+      "allocation": {
+        "timing": "monthly",
+        "pool_sources": [
+          "organization_copilot_pool",
+          "repository_sponsor_pool",
+          "opt_in_extension_pool"
+        ],
+        "formula": "pool_amount * (unit_q_consumption / total_q_consumption)",
+        "recipients": [
+          "developer",
+          "maintainer",
+          "repository_owner"
+        ],
+        "split_policy": {
+          "default": {
+            "developer": 0.6,
+            "maintainer": 0.25,
+            "repository_owner": 0.15
+          },
+          "notes": [
+            "splitは組織またはリポジトリ単位で上書き可能",
+            "単独開発者リポジトリではdeveloper比率を100%にできる"
+          ]
+        }
+      },
+      "settlement_modes": [
+        "internal_balance_only",
+        "github_sponsors_route",
+        "organization_invoice_credit"
+      ],
+      "reporting": {
+        "output": [
+          "allocation_report",
+          "developer_statement",
+          "repository_trace_summary",
+          "organization_audit_report"
+        ]
+      }
+    }
+  },
+  "governance": {
+    "transparency": {
+      "developer_visible": [
+        "self_trace_history",
+        "repository_q_total",
+        "allocation_statement"
+      ],
+      "admin_visible": [
+        "organization_usage_summary",
+        "audit_logs",
+        "policy_violation_log"
+      ]
+    },
+    "privacy": {
+      "principles": [
+        "個人識別を必要最小限にする",
+        "コード本文そのものではなく構造指紋を優先記録する",
+        "公開不能な私有コードの詳細露出を避ける"
+      ]
+    },
+    "policy_violation": {
+      "examples": [
+        "retraining_not_allowed_but_attempted",
+        "external_response_not_allowed_but_used",
+        "trace_missing_event"
+      ],
+      "response": [
+        "deny",
+        "warn",
+        "audit_flag"
+      ]
+    }
+  },
+  "ui_surfaces": {
+    "repository_settings": {
+      "sections": [
+        "AI Use Profile",
+        "Trace Policy",
+        "Royalty Recirculation"
+      ]
+    },
+    "file_view": {
+      "badges": [
+        "KLC",
+        "KSD",
+        "Trace Enabled"
+      ]
+    },
+    "pull_request_view": {
+      "panels": [
+        "Structural Contribution",
+        "Resonance Estimate"
+      ]
+    },
+    "profile_view": {
+      "panels": [
+        "Resonance Graph",
+        "Q Balance",
+        "Royalty Statements"
+      ]
+    },
+    "organization_dashboard": {
+      "panels": [
+        "Copilot Usage",
+        "Trace Compliance",
+        "Monthly Recirculation Report"
+      ]
+    }
+  },
+  "outputs": {
+    "sample_trace_root": "github_trace_log",
+    "sample_allocation_root": "github_allocation_report",
+    "export_formats": [
+      "yaml",
+      "json",
+      "csv"
+    ]
+  },
+  "roadmap": {
+    "phase_0": {
+      "name": "overlay_prototype",
+      "scope": [
+        "repository_ai_profile",
+        "trace_log_generation",
+        "monthly_allocation_simulation"
+      ]
+    },
+    "phase_1": {
+      "name": "organization_pilot",
+      "scope": [
+        "copilot_usage_integration",
+        "admin_audit_dashboard",
+        "sponsor_pool_routing"
+      ]
+    },
+    "phase_2": {
+      "name": "native_platform_mode",
+      "scope": [
+        "first_class_ksd",
+        "first_class_resonance_graph",
+        "built_in_royalty_statements"
+      ]
+    }
+  }
+}
