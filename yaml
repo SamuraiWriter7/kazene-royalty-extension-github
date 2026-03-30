@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+title: "Kazene Royalty Extension for GitHub"
+message: "If you use this repository, please cite it using the metadata from this file."
+type: software
+
+authors:
+  - given-names: "Shidenkai"
+    family-names: "Alpha"
+
+abstract: >-
+  Kazene Royalty Extension for GitHub is an extension specification that applies
+  Kazene Royalty OS v3.0 to GitHub, connecting repositories, Copilot-era code usage,
+  and developer contribution traces to a governed cycle of permission, trace,
+  and allocation.
+
+keywords:
+  - "Kazene"
+  - "Royalty OS"
+  - "GitHub"
+  - "Copilot"
+  - "traceability"
+  - "allocation"
+  - "recirculation"
+  - "AI governance"
+  - "structural trace"
+  - "developer contribution"
+
+license: "Apache-2.0"
+
+repository-code: "https://github.com/SamuraiWriter7/kazene-royalty-extension-github"
+url: "https://github.com/SamuraiWriter7/kazene-royalty-extension-github"
+
+references:
+  - type: software
+    title: "kazene-royalty-os-v3"
+    authors:
+      - given-names: "Shidenkai"
+        family-names: "Alpha"
+    repository-code: "https://github.com/SamuraiWriter7/kazene-royalty-os-v3"
+    url: "https://github.com/SamuraiWriter7/kazene-royalty-os-v3"
